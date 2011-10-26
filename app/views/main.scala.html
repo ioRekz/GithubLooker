@@ -1,0 +1,25 @@
+@(title:String = "Github looker")(body: => Html)
+
+<!DOCTYPE html>
+<html>
+    <head >
+      <link href="http://twitter.github.com/bootstrap/1.3.0/bootstrap.min.css" rel="stylesheet" type="text/css" />
+      <link href="@asset("public/stylesheets/twitter.css")" rel="stylesheet" type="text/css" />
+      <link href="@asset("public/stylesheets/github.css")" rel="stylesheet" type="text/css" />
+      <link href="@asset("public/stylesheets/chosen.css")" rel="stylesheet" type="text/css" />
+      <link href="@asset("public/stylesheets/jqcloud.css")" rel="stylesheet" type="text/css" />
+      
+      
+      <script src="@asset("public/javascripts/jquery-1.5.2.min.js")"></script>
+      <script src="@asset("public/javascripts/chosen.jquery.min.js")"></script>
+      <script src="@asset("public/javascripts/jqcloud-0.2.4.min.js")"></script>
+      <title>@title</title>
+   </head>
+   <body>
+    @body
+    
+      <script type="text/javascript">
+        $(".chzn-select").chosen();
+      </script>
+   </body>
+</html>

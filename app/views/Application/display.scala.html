@@ -1,0 +1,27 @@
+@(projects : Seq[(String,String)] = Nil)
+
+@main("Github Looker") {
+
+  <div id="header">
+  @form(controllers.Application.display) {
+      <input type="text" name="query"/>
+      <a class="btn success" href="@action(controllers.Application.display)">Search</a>
+    }
+   </div>
+   <div id="main">
+     <div id="repos">
+      <div id="container">
+      <div class="side-by-side clearfix">
+        <select data-placeholder="Choose a project" class="chzn-select" multiple style="width:350px;">
+                <option value=""></option> 
+                @for(p <- projects) {
+                    <option value="@p._1">@p._1 - @p._2</option>
+                } 
+       </select>
+       </div>
+       </div>
+     </div>
+     <div id="stats">
+     </div>
+   </div>
+}
