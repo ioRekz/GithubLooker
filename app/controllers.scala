@@ -62,27 +62,43 @@ object Application extends Controller {
       val counts = scala.collection.mutable.Map[String,Int]()
       
       
-      for(i <- 1 until 3 if WS.url(url+i).get().getStatus == 200) {
-        val commits = WS.url(url+i).get().getXml() \\ "commit"
-        commits.map { commit =>
+      <project>
+        <commits>
+        {
+          for(i <- 1 until 3 if WS.url(url+i).get().getStatus == 200) yield {
+            val commits = WS.url(url+i).get().getXml() \\ "commit"
+            commits.map { commit =>
+              
+              
+              
+              val login = (commit \ "committer" \ "login").text
+              if(counts.contains(login)) counts(login) += 1
+              else if (login!="") counts += login -> 1
+              
+              <commit>
+                <id>{(commit \ "id").text}</id>
+                <date>{(commit \ "committed-date").text}</date>
+              </commit>
+              
+            }        
+          }
+        }</commits>
           
-          val login = (commit \ "committer" \ "login").text
-          if(counts.contains(login)) counts(login) += 1
-          else if (login!="") counts += login -> 1
           
-        }        
-      }
-      
-      <commiters>
-      {
-        counts.map { person =>
-          <commiter>
-            <login>{person._1}</login>
-            <activity>{person._2}</activity>
-          </commiter>
+        <commiters>
+        {
+          counts.map { person =>
+            <commiter>
+              <login>{person._1}</login>
+              <activity>{person._2}</activity>
+            </commiter>
+          }
         }
-      }
-      </commiters>
+        </commiters>
+          
+      </project>
+      
     }
+    
     
 }
